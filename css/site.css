@@ -1,0 +1,1101 @@
+/* Site stylesheet. Research-group page: serif text in a measured column,
+   sans headings and captions, a tinted title band, a contents rail on wide
+   screens, figures in light panels, one accent colour. Dark mode swaps the
+   tokens. System fonts only, so the page opens offline from a file. */
+
+:root {
+  --paper: #ffffff;
+  --band: #f1f5f2;
+  --panel: #f7f8f7;
+  --ink: #111;
+  --ink-2: #444;
+  --muted: #777;
+  --rule: #dcdfdd;
+  --accent: #00693E;
+  --link: #00693E;
+  --cat-ref: #898781;
+  --cat-fun: #eb6834;
+  --cat-rl: #2a78d6;
+  --cat-pick: #4a3aa7;
+  --cat-hand: #1baf7a;
+  --serif: Georgia, "Times New Roman", Times, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, Menlo, Consolas, monospace;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-lift: 0 3px 4px rgba(0, 0, 0, 0.05), 0 8px 18px rgba(0, 0, 0, 0.08);
+  --motif: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='48' viewBox='0 0 120 48'%3E%3Cg fill='%2300693E'%3E%3Crect x='6' y='18' width='10' height='18'/%3E%3Crect x='36' y='18' width='10' height='18'/%3E%3Crect x='0' y='35.5' width='120' height='1'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #121212;
+    --band: #181d1a;
+    --panel: #1a1a1a;
+    --ink: #eee;
+    --ink-2: #ccc;
+    --muted: #999;
+    --rule: #333;
+    --accent: #4fb98a;
+    --link: #4fb98a;
+    --cat-fun: #d95926;
+    --cat-rl: #3987e5;
+    --cat-pick: #9085e9;
+    --cat-hand: #199e70;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.35);
+    --shadow-lift: 0 3px 4px rgba(0, 0, 0, 0.35), 0 8px 18px rgba(0, 0, 0, 0.45);
+    --motif: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='48' viewBox='0 0 120 48'%3E%3Cg fill='%234fb98a'%3E%3Crect x='6' y='18' width='10' height='18'/%3E%3Crect x='36' y='18' width='10' height='18'/%3E%3Crect x='0' y='35.5' width='120' height='1'/%3E%3C/g%3E%3C/svg%3E");
+  }
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+h1, h2, h3, figcaption, summary, .sans, .contents, .event, .standfirst-label,
+.meta, .sketch-label, .keys .l, .panel-head, .notes b {
+  font-family: var(--sans);
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+a {
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+}
+
+/* Title band: a faint pulse-train motif behind the title, fading with the
+   band's tint into the page colour along the bottom edge. */
+
+.band {
+  position: relative;
+  background: linear-gradient(to bottom, var(--band) 0%, var(--band) calc(100% - 5rem), var(--paper) 100%);
+  overflow: hidden;
+}
+
+.band::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: var(--motif);
+  background-size: 120px 48px;
+  opacity: 0.06;
+  -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 40%, transparent 100%);
+  pointer-events: none;
+}
+
+.band-inner {
+  position: relative;
+  max-width: 74rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 2.25rem;
+  box-sizing: border-box;
+}
+
+.event {
+  font-size: 0.85rem;
+  color: var(--ink-2);
+  margin: 0 0 1rem;
+}
+
+h1 {
+  font-size: 2.1rem;
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+  max-width: 24em;
+}
+
+.standfirst {
+  font-size: 1.15rem;
+  line-height: 1.45;
+  color: var(--ink-2);
+  margin: 0.75rem 0 0;
+  max-width: 36em;
+}
+
+/* Page grid: contents rail on the left from 64rem up, one column below. */
+
+.page {
+  max-width: 74rem;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+  box-sizing: border-box;
+}
+
+main {
+  min-width: 0;
+  padding-top: 1.75rem;
+}
+
+main > p,
+main > ol.next,
+main > .notes,
+main > .sketch,
+main > details > summary {
+  max-width: 44rem;
+}
+
+.contents {
+  font-size: 0.85rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.contents .label {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 0.5rem;
+}
+
+.contents ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: 2;
+  column-gap: 2rem;
+}
+
+.contents li {
+  margin: 0.15rem 0;
+  break-inside: avoid;
+}
+
+.contents a {
+  color: var(--ink-2);
+  text-decoration: none;
+  display: flex;
+  align-items: baseline;
+}
+
+.contents a:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+
+.contents .num {
+  flex: 0 0 1.5rem;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.contents li.current a {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media (min-width: 64rem) {
+  .page {
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 56rem);
+    column-gap: 3rem;
+    align-items: start;
+  }
+
+  .contents {
+    position: sticky;
+    top: 1.5rem;
+    padding: 1.75rem 0 0;
+    border-bottom: 0;
+  }
+
+  .contents ol {
+    columns: 1;
+  }
+}
+
+/* Opening and key figures */
+
+.opening {
+  font-size: 1.08rem;
+}
+
+.keys {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 1rem 1.5rem;
+  margin: 1.5rem 0 0;
+  padding: 1rem 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+.keys li {
+  margin: 0;
+}
+
+.keys .n {
+  display: block;
+  font-size: 1.6rem;
+  line-height: 1.1;
+  color: var(--accent);
+}
+
+.keys .l {
+  display: block;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  color: var(--ink-2);
+  margin-top: 0.25rem;
+}
+
+/* Between phone width and about 47.5rem the auto-fit grid would seat
+   three figures on one row and one on the next; two by two reads better. */
+
+@media (min-width: 40.01rem) and (max-width: 47.5rem) {
+  .keys {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+/* Wide layout: the four figures sit on one row beside the rail. */
+@media (min-width: 64rem) {
+  .keys {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .keys .n {
+    font-size: 1.4rem;
+  }
+}
+
+/* Sections */
+
+h2 {
+  font-size: 1.45rem;
+  line-height: 1.25;
+  font-weight: 600;
+  margin: 3rem 0 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+h2 .num {
+  color: var(--accent);
+  margin-right: 0.6rem;
+  font-variant-numeric: tabular-nums;
+}
+
+h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 1.75rem 0 0.5rem;
+}
+
+/* Figures: a light panel with the caption inside, lifted a little on hover. */
+
+figure {
+  margin: 1.75rem 0;
+  padding: 1rem;
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  box-shadow: var(--shadow);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  figure:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lift);
+  }
+}
+
+figure.narrow {
+  max-width: 44rem;
+  box-sizing: border-box;
+}
+
+figure img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  background: #fff;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+figcaption {
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--ink-2);
+  margin: 0.75rem 0 0;
+}
+
+figcaption b {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+figure.diagram svg,
+.sketch svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 38rem;
+  margin: 0 auto;
+  color: var(--ink);
+  font-family: var(--sans);
+}
+
+.sketch {
+  margin: 1.25rem 0 1.5rem;
+}
+
+.sketch-label {
+  font-size: 0.85rem;
+  color: var(--ink-2);
+  text-align: center;
+  margin: 0.3rem 0 0;
+}
+
+.fig-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.fig-row > * {
+  flex: 1 1 18rem;
+  min-width: 0;
+}
+
+.fig-row img {
+  width: 100%;
+}
+
+.fig-stack img {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+/* Chart containers are filled by js/charts.js; keep a little height so an
+   empty container still holds the caption in place. */
+
+.chart {
+  min-height: 2rem;
+}
+
+.chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: var(--sans);
+}
+
+/* js/charts.js marks each bar with the class "bar" and adds "in-view" to the
+   container the first time it scrolls into sight; the bars grow from their
+   baseline once. Bars drawn into a container already in view take their
+   final size at once. */
+
+.chart .bar {
+  transform-box: fill-box;
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 600ms ease-out;
+}
+
+.chart .bar.neg {
+  transform-origin: right center;
+}
+
+.chart.in-view .bar {
+  transform: scaleX(1);
+}
+
+/* The demo (Figure 1) is mounted by js/demo.js inside its own panel. */
+
+.panel-head {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 0.6rem;
+}
+
+figure.demo #demo {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+}
+
+figure.demo #demo svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* The illustration in Section 1 (js/dephase.js): two panels of spin
+   arrows in a three-dimensional view, a status line under each, one
+   Play/Pause button. Each spin keeps one hue in both panels. */
+
+figure.illus .dp-panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  max-width: 44rem;
+  margin: 0 auto;
+}
+
+figure.illus .dp-panel {
+  min-width: 0;
+}
+
+figure.illus .dp-title {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 0.25rem;
+}
+
+figure.illus .dp-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+}
+
+figure.illus .dp-status {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--ink-2);
+  margin: 0.35rem 0 0;
+  min-height: 2.4em;
+}
+
+figure.illus .dp-controls {
+  max-width: 44rem;
+  margin: 0.5rem auto 0;
+}
+
+figure.illus .dp-controls button {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  line-height: 1.3;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 0.15rem 0.6rem;
+  min-width: 4.5rem;
+  cursor: pointer;
+}
+
+figure.illus .dp-controls button:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 1px;
+}
+
+figure.illus svg .dp-axis {
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+
+figure.illus svg .dp-equator {
+  fill: none;
+  stroke: var(--rule);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+figure.illus svg .dp-axis-label {
+  font-family: var(--sans);
+  font-size: 11px;
+  fill: var(--muted);
+}
+
+figure.illus svg .dp-shaft {
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+figure.illus svg .dp-spin-0 { color: var(--cat-pick); }
+figure.illus svg .dp-spin-1 { color: var(--cat-rl); }
+figure.illus svg .dp-spin-2 { color: var(--accent); }
+figure.illus svg .dp-spin-3 { color: var(--cat-hand); }
+figure.illus svg .dp-spin-4 { color: var(--cat-fun); }
+figure.illus svg .dp-spin-5 { color: var(--ink-2); }
+
+figure.illus svg .dp-spin .dp-shaft { stroke: currentColor; }
+figure.illus svg .dp-spin .dp-head { fill: currentColor; }
+
+@media (max-width: 40rem) {
+  figure.illus .dp-panels {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Section 2: display equations in MathML. */
+
+p.eq {
+  margin: 0.75rem 0 1rem;
+  overflow-x: auto;
+}
+
+p.eq math {
+  font-size: 1.08em;
+}
+
+/* Details */
+
+details {
+  margin: 1.25rem 0;
+}
+
+summary {
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--ink-2);
+  padding: 0.3rem 0;
+}
+
+summary:hover {
+  color: var(--ink);
+}
+
+summary::marker {
+  color: var(--accent);
+}
+
+summary::-webkit-details-marker {
+  color: var(--accent);
+}
+
+details > figure {
+  margin-top: 0.75rem;
+}
+
+/* Lists */
+
+ul, ol {
+  padding-left: 1.5rem;
+}
+
+li {
+  margin: 0.25rem 0;
+}
+
+ol.next li::marker {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Notes */
+
+.notes p {
+  font-size: 0.92rem;
+  color: var(--ink-2);
+}
+
+.notes b {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.notes ol.refs {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+.notes ol.refs li {
+  margin: 0.35rem 0;
+}
+
+.notes ol.refs li:target {
+  color: var(--ink);
+}
+
+.meta {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Phone width: one column everywhere. */
+
+@media (max-width: 40rem) {
+  html {
+    font-size: 16px;
+  }
+
+  .band-inner {
+    padding: 1.5rem 1rem 1.5rem;
+  }
+
+  .page {
+    padding: 0 1rem 3rem;
+  }
+
+  h1 {
+    font-size: 1.55rem;
+  }
+
+  .standfirst {
+    font-size: 1.05rem;
+  }
+
+  .keys {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .keys .n {
+    font-size: 1.4rem;
+  }
+
+  figure {
+    padding: 0.75rem;
+  }
+
+  .fig-row > * {
+    flex-basis: 100%;
+  }
+}
+
+/* Figure 1: live search */
+
+#demo .demo-inner {
+  max-width: 44rem;
+  margin: 0 auto;
+}
+
+#demo [hidden] {
+  display: none !important;
+}
+
+#demo .demo-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1rem;
+  font-size: 0.8rem;
+  color: var(--ink-2);
+  margin: 0 0 0.75rem;
+}
+
+#demo .demo-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+
+#demo select,
+#demo button {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  line-height: 1.3;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 0.15rem 0.4rem;
+  margin: 0;
+  cursor: pointer;
+}
+
+#demo select:focus-visible,
+#demo button:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 1px;
+}
+
+#demo button:disabled {
+  color: var(--muted);
+  cursor: default;
+}
+
+#demo .demo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.5rem;
+}
+
+#demo button.demo-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--paper);
+  font-weight: 600;
+  padding: 0.3rem 0.9rem;
+  min-width: 6.5rem;
+  text-align: center;
+}
+
+#demo button.demo-primary:disabled {
+  background: var(--muted);
+  border-color: var(--muted);
+  color: var(--paper);
+}
+
+#demo .demo-settings {
+  margin: 0 0 0.75rem;
+}
+
+#demo .demo-settings summary {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  padding: 0.2rem 0;
+}
+
+#demo .demo-settings-note {
+  color: var(--muted);
+  margin-left: 0.5rem;
+}
+
+#demo .demo-settings .demo-controls {
+  margin: 0.5rem 0 0.25rem;
+}
+
+#demo .demo-slots {
+  display: flex;
+  gap: 0.3rem;
+  margin: 0.5rem 0;
+}
+
+#demo .demo-slot {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 2.2rem;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: transparent;
+  color: var(--ink);
+  font-size: 0.9rem;
+  text-align: center;
+  cursor: default;
+}
+
+#demo .demo-slot:disabled {
+  color: var(--ink);
+}
+
+#demo .demo-slot.filled {
+  border-color: var(--ink-2);
+}
+
+#demo .demo-slot.active {
+  border-style: dashed;
+  border-color: var(--ink-2);
+}
+
+#demo .demo-slot.landed {
+  animation: demo-land 600ms ease-out;
+}
+
+@keyframes demo-land {
+  0% {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--paper);
+  }
+
+  100% {
+    background: transparent;
+    border-color: var(--ink-2);
+    color: var(--ink);
+  }
+}
+
+#demo .demo-slot:not(:disabled) {
+  cursor: pointer;
+}
+
+#demo .demo-slot:not(:disabled):hover {
+  border-color: var(--accent);
+}
+
+/* The pulse strip under the slots: the pulses of the cycle so far on a
+   time axis, drawn by js/demo.js. x pulses take the accent, y pulses the
+   blue of the RL designs; the axis and its ticks are muted, the block
+   hairlines fainter still. A newly placed block fades in once. */
+
+#demo .demo-row-label {
+  margin: 0.5rem 0 0.15rem;
+  font-size: 0.8rem;
+  color: var(--ink-2);
+}
+
+#demo .demo-timeline {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 0 0.5rem;
+}
+
+#demo svg .tl-base,
+#demo svg .tl-tick {
+  stroke: var(--muted);
+  stroke-width: 1;
+}
+
+#demo svg .tl-hair {
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+
+#demo svg rect.tl-x {
+  fill: var(--accent);
+}
+
+#demo svg rect.tl-y {
+  fill: var(--cat-rl);
+}
+
+#demo svg rect.tl-new {
+  animation: demo-tl-fade 400ms ease-out;
+}
+
+@keyframes demo-tl-fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+#demo .demo-palette {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0.25rem 0 0.75rem;
+}
+
+#demo .demo-block {
+  width: 2.2rem;
+  padding: 0.15rem 0;
+  text-align: center;
+}
+
+#demo .demo-decision,
+#demo .demo-progress,
+#demo .demo-result {
+  margin: 0.75rem 0;
+}
+
+#demo .demo-text {
+  margin: 0.2rem 0 0;
+  font-size: 0.8rem;
+  color: var(--ink-2);
+}
+
+#demo .demo-text span {
+  display: inline-block;
+  margin-right: 1.25rem;
+}
+
+#demo .demo-text span:empty {
+  display: none;
+}
+
+#demo .demo-result-text {
+  margin: 0 0 0.3rem;
+  color: var(--ink);
+}
+
+#demo .demo-legend {
+  margin: 0.75rem 0 0;
+  font-size: 0.8rem;
+  color: var(--ink-2);
+}
+
+#demo .demo-status {
+  margin: 0.3rem 0 0;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--muted);
+  min-height: 1.2em;
+}
+
+#demo pre.demo-selftest {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  white-space: pre-wrap;
+  color: var(--ink-2);
+  border-top: 1px solid var(--rule);
+  margin: 0.75rem 0 0;
+  padding-top: 0.5rem;
+}
+
+#demo svg {
+  display: block;
+}
+
+#demo svg text {
+  font-family: var(--sans);
+  font-size: 12px;
+  fill: var(--ink-2);
+}
+
+#demo svg text.demo-muted {
+  fill: var(--muted);
+}
+
+#demo svg text.demo-label-chosen,
+#demo svg text.demo-label-this {
+  fill: var(--ink);
+  font-weight: 600;
+}
+
+#demo svg .demo-axis {
+  stroke: var(--ink-2);
+  stroke-width: 1;
+}
+
+#demo svg .demo-grid {
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+
+#demo svg .demo-tick {
+  stroke: var(--ink);
+  stroke-width: 1;
+}
+
+#demo svg .demo-bar {
+  fill: var(--accent);
+  opacity: 0.6;
+}
+
+#demo svg .demo-bar.chosen {
+  opacity: 1;
+}
+
+#demo svg .demo-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+#demo svg .demo-ref {
+  opacity: 0.9;
+}
+
+#demo svg .demo-bar-this {
+  fill: var(--accent);
+  opacity: 1;
+  transition: width 400ms ease-out;
+}
+
+#demo svg .demo-cat-ref { fill: var(--cat-ref); }
+#demo svg .demo-cat-fun { fill: var(--cat-fun); }
+#demo svg .demo-cat-rl { fill: var(--cat-rl); }
+#demo svg .demo-cat-pick { fill: var(--cat-pick); }
+#demo svg .demo-cat-hand { fill: var(--cat-hand); }
+
+@media (max-width: 40rem), (pointer: coarse) {
+  #demo select,
+  #demo button {
+    font-size: 1rem;
+    min-height: 2.75rem;
+  }
+
+  #demo .demo-settings summary {
+    font-size: 1rem;
+    min-height: 2.75rem;
+    padding: 0.6rem 0;
+    box-sizing: border-box;
+  }
+
+  #demo .demo-slots {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.25rem;
+  }
+
+  #demo .demo-slot {
+    width: auto;
+    max-width: none;
+    aspect-ratio: auto;
+  }
+
+  #demo .demo-palette {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  #demo .demo-block {
+    width: auto;
+  }
+}
+
+/* Motion: smooth in-page scrolling for those who allow it; no transitions
+   or animations for those who do not. */
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .chart .bar {
+    transform: none;
+  }
+
+  figure:hover {
+    transform: none;
+  }
+}
+
+/* Print: a chart that was never scrolled into view still has its bars
+   at scale zero; print them at full size. */
+
+@media print {
+  .chart .bar {
+    transform: none;
+    transition: none;
+  }
+}
