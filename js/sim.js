@@ -3,8 +3,11 @@
  *
  * Small dense complex matrices, d = 2^N with N <= 4. Every propagator is
  * exp(-i A) for a Hermitian A, computed by scaling and squaring with a
- * Taylor series (see expmHermitian). Units: couplings and shifts are in
- * Hz and multiply time in seconds directly (no 2 pi anywhere).
+ * Taylor series (see expmHermitian). Units: couplings, shifts and offsets
+ * are the evaluator's scaled constants and multiply time in seconds
+ * directly (no 2 pi anywhere): a shift or offset value is in units of
+ * 2 rad/s = 1/pi Hz, a coupling value in units of 4 rad/s = 2/pi Hz, for
+ * the Hamiltonian written with spin-1/2 operators.
  *
  * Conventions:
  *   - Site 0 is the most significant bit of the Kronecker product.
