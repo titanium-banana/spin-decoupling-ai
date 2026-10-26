@@ -1,5 +1,5 @@
 window.SITE_DATA = {
- "generated": "2026-10-14",
+ "generated": "2026-10-26",
  "categories": [
   "Reference",
   "FunSearch",
@@ -126,15 +126,15 @@ window.SITE_DATA = {
  "banks": [
   {
    "id": "b1",
-   "label": "no disorder, 1 kHz coupling, all control errors"
+   "label": "no disorder, coupling 1000 (units of 2/π Hz), all control errors"
   },
   {
    "id": "b2",
-   "label": "100 Hz disorder, 3 kHz coupling, all control errors (ranking condition)"
+   "label": "disorder 100 (units of 1/π Hz), coupling 3000 (units of 2/π Hz), all control errors (ranking condition)"
   },
   {
    "id": "b3",
-   "label": "3 kHz disorder, 4 kHz coupling, all control errors"
+   "label": "disorder 3000 (units of 1/π Hz), coupling 4000 (units of 2/π Hz), all control errors"
   }
  ],
  "scores": {
