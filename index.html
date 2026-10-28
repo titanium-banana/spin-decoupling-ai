@@ -41,8 +41,8 @@
 
 <ul class="keys">
 <li><span class="n">18</span><span class="l">search runs</span></li>
-<li><span class="n">69 billion</span><span class="l">possible cycles</span></li>
-<li><span class="n">300 thousand</span><span class="l">cycles tried per run</span></li>
+<li><span class="n">69 billion</span><span class="l">possible sequences</span></li>
+<li><span class="n">300 thousand</span><span class="l">sequences tried per run</span></li>
 <li><span class="n">7</span><span class="l">spins in the final test</span></li>
 </ul>
 
@@ -54,7 +54,7 @@
 <div id="dephase"><p class="demo-status">The illustration appears here once the page has loaded.</p></div>
 <figcaption><b>Illustration.</b> Six spins with different local fields, in the rotating frame. Left, left alone, they fan out and stay spread. Right, a 90-degree pulse about x, then about y, six times, turns them so that the field, as each spin sees it, points along +y, &minus;x, &minus;z, &minus;y, +x and +z for one window each, and the fan closes again at the end of every cycle. The pulses are drawn as instantaneous turns, the coupling between spins is left out, and a small residue remains that shrinks with shorter windows.</figcaption>
 </figure>
-<p>We turned the design into a search over cycles of 12 blocks from an alphabet of 8, about 69 billion cycles (SED in the figures). Each block is two 90-degree pulses, each followed by a short free interval, then a longer wait; it fills three windows of 3 microseconds, and a cycle lasts about a tenth of a millisecond. A cycle is scored by how faithfully it returns the spins to where they started, averaged over five random spin systems. The reward is minus the base-10 logarithm of the infidelity, so 4 means an error of one part in ten thousand. Each point higher means ten times less error. The search scores on 3 spins, which is cheap; every candidate is re-scored on 7 spins with control errors and disorder.</p>
+<p>We turned the design into a search over cycles of 12 blocks from an alphabet of 8, about 69 billion sequences (SED in the figures). Each block is two 90-degree pulses, each followed by a short free interval, then a longer wait; it fills three windows of 3 microseconds, and a cycle lasts about a tenth of a millisecond. A cycle is scored by how faithfully it returns the spins to where they started, averaged over five random spin systems. The reward is minus the base-10 logarithm of the infidelity, so 4 means an error of one part in ten thousand. Each point higher means ten times less error. The search scores on 3 spins, which is cheap; every nominated sequence is re-scored on 7 spins with control errors and disorder.</p>
 
 <div class="sketch" role="img" aria-label="One block: a pulse about x, a free interval, a pulse about y, a free interval, then a wait">
 <svg viewBox="0 0 560 128" xmlns="http://www.w3.org/2000/svg">
@@ -93,33 +93,33 @@
 <p>where <math><mrow><mi>A</mi><mo>=</mo><munder><mo>&#x2211;</mo><mi>i</mi></munder><msubsup><mi>S</mi><mi>a</mi><mi>i</mi></msubsup></mrow></math> is the collective spin along the pulse axis, <math><mrow><msub><mi>A</mi><mo>&#x22A5;</mo></msub></mrow></math> the collective spin along the other transverse axis and <math><mrow><msub><mi>t</mi><mi>p</mi></msub></mrow></math> the pulse width. Between pulses the spins evolve freely under <math><mrow><mi>exp</mi><mo>&#x2061;</mo><mrow><mo>(</mo><mo>&#x2212;</mo><mi>i</mi><msub><mi>H</mi><mtext>sys</mtext></msub><mi>t</mi><mo>)</mo></mrow></mrow></math>. A block is two such pulses, each followed by a free interval, then a free window, as in the sketch above.</p>
 <p>A cycle of blocks multiplies to one propagator U. Its score is the average gate fidelity to the identity on N spins, <math><mrow><mi>d</mi><mo>=</mo><msup><mn>2</mn><mi>N</mi></msup></mrow></math>,</p>
 <p class="eq"><math display="block"><mrow><mi>F</mi><mo>=</mo><mfrac><mrow><msup><mrow><mo>|</mo><mi>Tr</mi><mo>&#x2061;</mo><mi>U</mi><mo>|</mo></mrow><mn>2</mn></msup><mo>+</mo><mi>d</mi></mrow><mrow><mi>d</mi><mo>&#x2062;</mo><mrow><mo>(</mo><mi>d</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow></mrow></mfrac><mo>,</mo><mspace width="1.5em"/><mi>R</mi><mo>=</mo><mo>&#x2212;</mo><msub><mi>log</mi><mn>10</mn></msub><mo>&#x2061;</mo><mrow><mo>(</mo><mn>1</mn><mo>&#x2212;</mo><mover><mi>F</mi><mo>&#x00AF;</mo></mover><mo>)</mo></mrow></mrow></math></p>
-<p>with <math><mrow><mover><mi>F</mi><mo>&#x00AF;</mo></mover></mrow></math> the mean over the ensemble members. A cycle with U = 1 for every member returns any state of the spins to where it started, whatever the couplings and shifts, which is the whole task of a memory. The search looks for the cycle with the largest R among the <math><mrow><msup><mn>8</mn><mn>12</mn></msup></mrow></math>, on 3 spins without errors while searching and on 7 spins with the errors afterwards (settings in the Notes). The pulses manage this the way the illustration shows: each turn changes the axis along which the spins see every term of <math><mrow><msub><mi>H</mi><mtext>sys</mtext></msub></mrow></math>, and over a cycle that sends the field along the six directions the terms average away, up to what the finite pulses and the next order of the average leave behind.</p>
+<p>with <math><mrow><mover><mi>F</mi><mo>&#x00AF;</mo></mover></mrow></math> the mean over the ensemble members. A cycle with U = 1 for every member returns any state of the spins to where it started, whatever the couplings and shifts, which is the whole task of a memory. The search looks for the sequence with the largest R among the <math><mrow><msup><mn>8</mn><mn>12</mn></msup></mrow></math>, on 3 spins without errors while searching and on 7 spins with the errors afterwards (settings in the Notes). The pulses manage this the way the illustration shows: each turn changes the axis along which the spins see every term of <math><mrow><msub><mi>H</mi><mtext>sys</mtext></msub></mrow></math>, and over a cycle that sends the field along the six directions the terms average away, up to what the finite pulses and the next order of the average leave behind.</p>
 
 <h2 id="sec3"><span class="num">3</span>A live search</h2>
-<p>Press Start and the search builds a twelve-block cycle in your browser with the 3-spin physics we trained on. The network was trained beforehand and stays fixed while the search runs.</p>
+<p>Press Start and the search builds a twelve-block sequence in your browser with the 3-spin physics we trained on. The network was trained beforehand and stays fixed while the search runs.</p>
 
 <figure id="fig1" class="demo">
 <p class="panel-head">Live search</p>
 <div id="demo"><p class="demo-status">The live search appears here once the page has loaded.</p></div>
-<figcaption><b>Figure 1.</b> The bars grow as the search tries each block, the ticks show the network's prior, and the strip under the slots draws the pulses chosen so far. The finished cycle is scored beside the standard sequences, our designs and the spins left alone.</figcaption>
+<figcaption><b>Figure 1.</b> The bars grow as the search tries each block, the ticks show the network's prior, and the strip under the slots draws the pulses chosen so far. The finished sequence is scored beside the standard sequences, our sequences and the spins left alone.</figcaption>
 </figure>
 
 <h2 id="sec4"><span class="num">4</span>Why a search is needed</h2>
-<p>We scored three thousand random cycles, mutants of the best and most-visited cycles, and the search's candidates (Figure 2). Most random cycles do not close (their pulses leave a net rotation) and score near zero. Above an empty band, the closed cycles spread over a plateau near 3. Most candidates cluster above 8, where no random cycle or mutant appears; the rest lie between about 5 and 7.</p>
-<p>Good cycles are isolated. One changed block drops every sampled mutant of a top cycle to the bottom, and two or more changes rarely clear the plateau (Figure 3).</p>
+<p>We scored three thousand random sequences, mutants of the best and most-visited sequences, and the search's nominated families (Figure 2). Most random sequences do not close (their pulses leave a net rotation) and score near zero. Above an empty band, the closed sequences spread over a plateau near 3. Most nominated families cluster above 8, where no random sequence or mutant appears; the rest lie between about 5 and 7.</p>
+<p>Good sequences are isolated. One changed block drops every sampled mutant of a top sequence to the bottom, and two or more changes rarely clear the plateau (Figure 3).</p>
 
 <figure>
-<img src="img/fig02_reward_spectrum.png" alt="Histogram of rewards for random cycles, mutants and found candidates">
-<figcaption><b>Figure 2.</b> Reward of random cycles, mutants of the best cycles, and the search's candidates, counted on a logarithmic axis; the widest empty band is shaded.</figcaption>
+<img src="img/fig02_reward_spectrum.png" alt="Histogram of rewards for random sequences, mutants and nominated families">
+<figcaption><b>Figure 2.</b> Reward of random sequences, mutants of the best sequences, and the search's nominated families, counted on a logarithmic axis; the widest empty band is shaded.</figcaption>
 </figure>
 
 <figure>
 <img src="img/fig03_mutation_cliff.png" alt="Reward of mutants against the number of changed blocks">
-<figcaption><b>Figure 3.</b> Reward of each mutant of the best cycles against the number of blocks changed; the line is the mean per distance.</figcaption>
+<figcaption><b>Figure 3.</b> Reward of each mutant of the best sequences against the number of blocks changed; the line is the mean per distance.</figcaption>
 </figure>
 
 <h2 id="sec5"><span class="num">5</span>Approach 1: reinforcement learning</h2>
-<p>Reinforcement learning has designed such sequences before; <a href="#ref-yxx24">that search</a> produced the reference YXX24. We used a single-player version of <a href="#ref-alphazero">AlphaZero</a>. At each decision a tree search of 500 simulations explores continuations of the cycle, guided by a small network whose policy head proposes the next block and whose value head estimates the final reward; the next block is drawn from the visit counts. The simulator scores the finished cycle; the score and the visit counts train the network. One trainer updates the network while seven collectors produce cycles (Figure 4).</p>
+<p>Reinforcement learning has designed such sequences before; <a href="#ref-yxx24">that search</a> produced the reference YXX24. We used a single-player version of <a href="#ref-alphazero">AlphaZero</a>. At each decision a tree search of 500 simulations explores continuations of the sequence, guided by a small network whose policy head proposes the next block and whose value head estimates the final reward; the next block is drawn from the visit counts. The simulator scores the finished sequence; the score and the visit counts train the network. One trainer updates the network while seven collectors produce sequences (Figure 4).</p>
 
 <figure class="diagram narrow">
 <svg viewBox="0 0 680 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Loop: network to tree search to next block to simulator and back to the network">
@@ -142,7 +142,7 @@
     <text x="525" y="246">next block</text>
     <text x="525" y="268" font-size="12" fill="var(--ink-2)">drawn from the visit counts</text>
     <text x="155" y="246">spin simulator</text>
-    <text x="155" y="268" font-size="12" fill="var(--ink-2)">scores the completed cycle</text>
+    <text x="155" y="268" font-size="12" fill="var(--ink-2)">scores the completed sequence</text>
   </g>
   <g stroke="currentColor" stroke-width="1.2" fill="none" marker-end="url(#arrow4)">
     <line x1="270" y1="77" x2="408" y2="77"/>
@@ -162,18 +162,18 @@
 <figcaption><b>Figure 4.</b> The reinforcement-learning loop.</figcaption>
 </figure>
 
-<p>We ran the loop 18 times, varying the alphabet (SED, or YXX with 8 three-pulse blocks to a cycle), the exploration constant c (4, 9.5, 15 or 20.5) and the temperature (fixed, or annealed in the second half). Each run made about 300 thousand rollouts while the trainer took 100 thousand steps; on SED from c=9.5 up the trainer finished in the first half, so most of their cycles came from a network that no longer changed.</p>
+<p>We ran the loop 18 times, varying the alphabet (SED, or YXX with 8 three-pulse blocks to a cycle), the exploration constant c (4, 9.5, 15 or 20.5) and the temperature (fixed, or annealed in the second half). Each run made about 300 thousand rollouts while the trainer took 100 thousand steps; on SED from c=9.5 up the trainer finished in the first half, so most of their sequences came from a network that no longer changed.</p>
 
 <details>
 <summary>Figures 5 and 6: training curves</summary>
 <figure>
 <img src="img/fig05_best_reward.png" alt="Best reward found so far against rollouts in one run">
-<figcaption><b>Figure 5.</b> Best reward so far against rollouts in one run (SED, c=20.5, fixed temperature, the second of the two runs at that setting). The plateau at 15 is the cap of the training score, reached when the training simulator can no longer tell the cycle from a perfect one.</figcaption>
+<figcaption><b>Figure 5.</b> Best reward so far against rollouts in one run (SED, c=20.5, fixed temperature, the second of the two runs at that setting). The plateau at 15 is the cap of the training score, reached when the training simulator can no longer tell the sequence from a perfect one.</figcaption>
 </figure>
 
 <figure>
-<img src="img/fig06_policy_alone_yxx_top.png" alt="Mean reward of cycles sampled from the policy network alone, against trainer step">
-<figcaption><b>Figure 6.</b> Mean reward of 4,096 cycles drawn from the policy alone, for the YXX runs, against the trainer step; the rise comes earlier at smaller exploration constants.</figcaption>
+<img src="img/fig06_policy_alone_yxx_top.png" alt="Mean reward of sequences sampled from the policy network alone, against trainer step">
+<figcaption><b>Figure 6.</b> Mean reward of 4,096 sequences drawn from the policy alone, for the YXX runs, against the trainer step; the rise comes earlier at smaller exploration constants.</figcaption>
 </figure>
 </details>
 
@@ -183,9 +183,9 @@
 </figure>
 
 <h2 id="sec6"><span class="num">6</span>What the network learned</h2>
-<p>We looked at each run's last saved network. On SED, at c=4 the policy is a lookup table of about ten cycles that close and score well. At c=9.5 it puts part of its weight on one cycle and its rotated copies and spreads the rest. From c=15 up it has learned only to close its cycles: about a fifth close, against a twelfth of random cycles, and they score like random closed ones. On YXX every policy learns to close its cycles and concentrates near the top of the spectrum (Figure 9).</p>
+<p>We looked at each run's last saved network. On SED, at c=4 the policy is a lookup table of about ten sequences that close and score well. At c=9.5 it puts part of its weight on one sequence and its rotated copies and spreads the rest. From c=15 up it has learned only to close its sequences: about a fifth close, against a twelfth of random sequences, and they score like random closed ones. On YXX every policy learns to close its sequences and concentrates near the top of the spectrum (Figure 9).</p>
 <p>The value head forecasts the reward the final network's own search reaches (Figure 10). The rank correlation is about 0.2 to 0.4 on SED from c=9.5 up, below 0.1 at c=4, and 0.6 to 0.8 on YXX at c=15 and 20.5.</p>
-<p>Turning all the pulse axes together about the field leaves a cycle's score unchanged. The policies that concentrated on a few cycles did not learn this; a cycle and its rotated copy get different probabilities (Figure 11).</p>
+<p>Turning all the pulse axes together about the field leaves a sequence's score unchanged. The policies that concentrated on a few sequences did not learn this; a sequence and its rotated copy get different probabilities (Figure 11).</p>
 
 <details>
 <summary>Figures 8 to 11: what the policy and value head learned</summary>
@@ -196,7 +196,7 @@
 <img src="img/fig08b_bubbles_c95.png" alt="Growth plot of the run at exploration constant 9.5">
 <img src="img/fig08c_bubbles_c205.png" alt="Growth plot of the run at exploration constant 20.5">
 </div>
-<figcaption><b>Figure 8.</b> Three SED runs at fixed temperature, c=4, 9.5 and 20.5 from left to right. Each dot is a cycle with a stored reward of 6 or more, sized by how often the search revisited it: a few cycles collect the visits at c=4, one cycle at c=9.5, and at c=20.5 nearly every cycle is visited once.</figcaption>
+<figcaption><b>Figure 8.</b> Three SED runs at fixed temperature, c=4, 9.5 and 20.5 from left to right. Each dot is a sequence with a stored reward of 6 or more, sized by how often the search revisited it: a few sequences collect the visits at c=4, one sequence at c=9.5, and at c=20.5 nearly every sequence is visited once.</figcaption>
 </figure>
 
 <figure>
@@ -204,7 +204,7 @@
 <img src="img/fig09a_policy_alone_sed.png" alt="Policy alone over training, SED alphabet: mean reward, closure share, perplexity">
 <img src="img/fig09b_policy_alone_yxx.png" alt="Policy alone over training, YXX alphabet: mean reward, closure share, perplexity">
 </div>
-<figcaption><b>Figure 9.</b> The policy alone over training, SED left and YXX right: mean reward of 4,096 sampled cycles, the share that close, and the effective number of cycles it spreads over.</figcaption>
+<figcaption><b>Figure 9.</b> The policy alone over training, SED left and YXX right: mean reward of 4,096 sampled sequences, the share that close, and the effective number of sequences it spreads over.</figcaption>
 </figure>
 
 <figure>
@@ -226,29 +226,29 @@
 </details>
 
 <h2 id="sec7"><span class="num">7</span>What the search found</h2>
-<p>The RL designs are the cycles we kept from each run by a fixed rule; RL design 1 ranks first among them. FunSearch 1 and 2 (Section 8) score level with it on the ranking condition. The archive picks, cycles from the runs' records that fell below our selection cut, score a little lower. We joined the four hand-assembled sequences from pieces the search found; D beats every reference on the ranking condition and the harshest one. The runs also visited SED24, SED24Err, YXX24 and both FunSearch sequences; one run visited YXX24 fifteen times.</p>
+<p>The RL sequences are the ones we kept from each run by a fixed rule; RL sequence 1 ranks first among them. FunSearch 1 and 2 (Section 8) score level with it on the ranking condition. The archive picks, sequences from the runs' records that fell below our selection cut, score a little lower. We joined the four hand-assembled sequences from pieces the search found; D beats every reference on the ranking condition and the harshest one. The runs also visited SED24, SED24Err, YXX24 and both FunSearch sequences; one run visited YXX24 fifteen times.</p>
 
 <figure>
 <div id="fig12-chart" class="chart"></div>
-<figcaption><b>Figure 12.</b> Reward on three simulated conditions; the dashed line in each panel marks the best reference. Hand-assembled A, B and C clear it in all three panels, and RL design 1 reaches it in the first two and falls short in the third.</figcaption>
+<figcaption><b>Figure 12.</b> Reward on three simulated conditions; the dashed line in each panel marks the best reference. Hand-assembled A, B and C clear it in all three panels, and RL sequence 1 reaches it in the first two and falls short in the third.</figcaption>
 </figure>
 
-<p>RL design 1's edge over the references holds only near the training and ranking conditions. It gains on CORY48 at low disorder and intermediate coupling and loses over much of the range of disorder and coupling we mapped (Figure 13). As the windows between pulses widen, SED48 and some of the hand-assembled sequences keep more fidelity than RL design 1 (Figure 15).</p>
+<p>RL sequence 1's edge over the references holds only near the training and ranking conditions. It gains on CORY48 at low disorder and intermediate coupling and loses over much of the range of disorder and coupling we mapped (Figure 13). As the windows between pulses widen, SED48 and some of the hand-assembled sequences keep more fidelity than RL sequence 1 (Figure 15).</p>
 
 <details>
 <summary>Figures 13 to 16: robustness and first appearance in the runs</summary>
 
 <figure>
 <div class="fig-row">
-<img src="img/fig13a_map_rl1.png" alt="Reward difference against CORY48 for RL design 1 over disorder and coupling">
+<img src="img/fig13a_map_rl1.png" alt="Reward difference against CORY48 for RL sequence 1 over disorder and coupling">
 <img src="img/fig13b_map_handA.png" alt="Reward difference against CORY48 for Hand-assembled A over disorder and coupling">
 </div>
-<figcaption><b>Figure 13.</b> Reward difference against CORY48 over disorder (vertical) and coupling (horizontal), RL design 1 left, Hand-assembled A right; green better, purple worse, clipped at plus or minus 2.</figcaption>
+<figcaption><b>Figure 13.</b> Reward difference against CORY48 over disorder (vertical) and coupling (horizontal), RL sequence 1 left, Hand-assembled A right; green better, purple worse, clipped at plus or minus 2.</figcaption>
 </figure>
 
 <figure>
 <img src="img/fig14_robustness_rotation.png" alt="Reward against fractional rotation error, four panels by category">
-<figcaption><b>Figure 14.</b> Reward against rotation error alone, one panel per category. Hand-assembled A, B and C lead near zero error; the three YXX designs fall off steeply beyond their small-error peak, YXX24 less so.</figcaption>
+<figcaption><b>Figure 14.</b> Reward against rotation error alone, one panel per category. Hand-assembled A, B and C lead near zero error; the three YXX sequences fall off steeply beyond their small-error peak, YXX24 less so.</figcaption>
 </figure>
 
 <figure>
@@ -258,13 +258,13 @@
 
 <figure>
 <div id="fig16-chart" class="chart"></div>
-<figcaption><b>Figure 16.</b> The rollout at which each design, archive pick and hand-assembled sequence first appeared in its run, read from snapshots every ten thousand rollouts; hand-assembled sequences are dated by the piece a run found.</figcaption>
+<figcaption><b>Figure 16.</b> The rollout at which each RL sequence, archive pick and hand-assembled sequence first appeared in its run, read from snapshots every ten thousand rollouts; hand-assembled sequences are dated by the piece a run found.</figcaption>
 </figure>
 
 </details>
 
 <h2 id="sec8"><span class="num">8</span>Approach 2: FunSearch</h2>
-<p>The second approach, <a href="#ref-funsearch">FunSearch</a>, searches over programs. A language model writes a short program that generates a cycle, and a sandbox runs it on the spin simulator and scores the cycle. The best programs, with a short summary of which unwanted terms their cycles cancel, go back into the next prompt (Figure 17).</p>
+<p>The second approach, <a href="#ref-funsearch">FunSearch</a>, searches over programs. A language model writes a short program that generates a sequence, and a sandbox runs it on the spin simulator and scores the sequence. The best programs, with a short summary of which unwanted terms their sequences cancel, go back into the next prompt (Figure 17).</p>
 
 <figure class="diagram narrow">
 <svg viewBox="0 0 680 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Loop: language model to sandbox to score to program database and back to the prompt">
@@ -285,7 +285,7 @@
     <text x="525" y="70">sandbox</text>
     <text x="525" y="92" font-size="12" fill="var(--ink-2)">runs it on the spin simulator</text>
     <text x="525" y="246">score</text>
-    <text x="525" y="268" font-size="12" fill="var(--ink-2)">reward of the cycle it produced</text>
+    <text x="525" y="268" font-size="12" fill="var(--ink-2)">reward of the sequence it produced</text>
     <text x="155" y="246">program database</text>
     <text x="155" y="268" font-size="12" fill="var(--ink-2)">best programs and their summary</text>
   </g>
@@ -297,7 +297,7 @@
   </g>
   <g font-size="12" fill="var(--ink-2)" text-anchor="middle">
     <text x="339" y="66">program</text>
-    <text x="580" y="170">cycle</text>
+    <text x="580" y="170">sequence</text>
     <text x="341" y="277">score</text>
     <text x="86" y="168">back into</text>
     <text x="86" y="184">the prompt</text>
@@ -306,7 +306,7 @@
 <figcaption><b>Figure 17.</b> The FunSearch loop.</figcaption>
 </figure>
 
-<p>A first run of the loop on 3-spin systems produced FunSearch 1 and 2, its two best cycles.</p>
+<p>A first run of the loop on 3-spin systems produced FunSearch 1 and 2, its two best sequences.</p>
 
 <details>
 <summary>Figure 18: a small run of the loop</summary>
@@ -323,11 +323,11 @@
 <li>An equal-budget search without learning, to tell what the network contributed to the discoveries.</li>
 </ol>
 
-<p>The score we rank by asks a cycle to cancel the spins' own interactions, the disorder and the offset on a simulated solid with imperfect pulses. For a spin qubit or memory, which has to hold any state unchanged, that is the whole task. For a sensor it is only the decoupling half: a sensor must also stay responsive to the field it measures, and our target treats that field as one more thing to cancel, so a sensing sequence needs a target of its own.</p>
+<p>The score we rank by asks a sequence to cancel the spins' own interactions, the disorder and the offset on a simulated solid with imperfect pulses. For a spin qubit or memory, which has to hold any state unchanged, that is the whole task. For a sensor it is only the decoupling half: a sensor must also stay responsive to the field it measures, and our target treats that field as one more thing to cancel, so a sensing sequence needs a target of its own.</p>
 
 <h2 id="sec10"><span class="num">10</span>Notes</h2>
 <div class="notes">
-<p><b>Settings.</b> Figures 12 to 15 use an exact evaluator on 7 spins, 20 ensemble members from one seed and 1 microsecond pulses, over 72 windows of 3 microseconds (Figure 15 varies the window length); Figures 2 and 3 use the same ensemble over one cycle at coupling 1000 (units of 2/π Hz) with no disorder or control errors. Training used 3 spins, 5 ensemble members, coupling 1000 (units of 2/π Hz), no disorder and no errors. The three conditions, all with the three control errors, are coupling 1000 (units of 2/π Hz) without disorder; coupling 3000 (units of 2/π Hz) with disorder 100 (units of 1/π Hz), the ranking condition, whose disorder and coupling Figures 14 and 15 also use; and coupling 4000 (units of 2/π Hz) with disorder 3000 (units of 1/π Hz). The control errors are a rotation error of 1.5 percent, a phase transient of 1 percent of a quarter turn on each side of every pulse, and an offset drawn for each ensemble member with a spread of 10 (units of 1/π Hz). Couplings have the secular dipolar form between every pair, drawn around the stated value with a quarter of it as spread. The small FunSearch run in Figure 18 used 8-block cycles, one 3-spin system and 2 microsecond windows, and counted a failed program as a random cycle. The live search uses the network saved after 90 thousand trainer steps of one SED run at exploration constant 9.5 and fixed temperature; its second physics setting is the ranking condition. The disorder, coupling and offset values are the coefficients of the Pauli form in Section 2, in the scaled units given there. The simulator writes the internal terms with Pauli matrices and the controls with spin-1/2 operators.</p>
+<p><b>Settings.</b> Figures 12 to 15 use an exact evaluator on 7 spins, 20 ensemble members from one seed and 1 microsecond pulses, over 72 windows of 3 microseconds (Figure 15 varies the window length); Figures 2 and 3 use the same ensemble over one cycle at coupling 1000 (units of 2/π Hz) with no disorder or control errors. Training used 3 spins, 5 ensemble members, coupling 1000 (units of 2/π Hz), no disorder and no errors. The three conditions, all with the three control errors, are coupling 1000 (units of 2/π Hz) without disorder; coupling 3000 (units of 2/π Hz) with disorder 100 (units of 1/π Hz), the ranking condition, whose disorder and coupling Figures 14 and 15 also use; and coupling 4000 (units of 2/π Hz) with disorder 3000 (units of 1/π Hz). The control errors are a rotation error of 1.5 percent, a phase transient of 1 percent of a quarter turn on each side of every pulse, and an offset drawn for each ensemble member with a spread of 10 (units of 1/π Hz). Couplings have the secular dipolar form between every pair, drawn around the stated value with a quarter of it as spread. The small FunSearch run in Figure 18 used 8-block cycles, one 3-spin system and 2 microsecond windows, and counted a failed program as a random sequence. The live search uses the network saved after 90 thousand trainer steps of one SED run at exploration constant 9.5 and fixed temperature; its second physics setting is the ranking condition. The disorder, coupling and offset values are the coefficients of the Pauli form in Section 2, in the scaled units given there. The simulator writes the internal terms with Pauli matrices and the controls with spin-1/2 operators.</p>
 <p><b>Caveats.</b> Our results here are not yet published. One run per setting (two at c=20.5) and no repeated seeds, so differences between settings are single observations. The margins in Figure 12 are small and measured on one saved ensemble. Everything here is simulated, on 3 or 7 spins with random all-to-all couplings and no lattice geometry. The first FunSearch run used different physics from the RL search: coupling 4000 (units of 2/π Hz) and disorder 3500 (units of 1/π Hz).</p>
 <p><b>References.</b></p>
 <ol class="refs">

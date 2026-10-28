@@ -26,7 +26,7 @@
   var CHAR = 6.3;     /* estimated width of one character at 12 px */
   var CAT_VARS = {
     'Reference': '--cat-ref', 'FunSearch': '--cat-fun',
-    'RL design': '--cat-rl', 'Archive pick': '--cat-pick',
+    'RL sequence': '--cat-rl', 'Archive pick': '--cat-pick',
     'Hand-assembled': '--cat-hand'
   };
 
@@ -382,7 +382,7 @@
       });
     });
     var lay = layoutRows(items, top), axisY = lay.end + 4, H = axisY + 38;
-    var svg = makeSvg(c, W, H, 'Rollout count at which each design first appeared in a run');
+    var svg = makeSvg(c, W, H, 'Rollout count at which each sequence first appeared in a run');
 
     for (var v = 0; v <= xmax; v += 50000) {
       hairline(svg, x(v), 8, x(v), axisY);

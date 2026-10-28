@@ -14,7 +14,7 @@
  *         * (cInit + log10((N_parent + cBase + 1) / cBase)),
  *
  * Q = W / N (0 when unvisited), exact ties going to the larger action
- * index. A leaf with a full cycle (12 blocks) is scored by the exact
+ * index. A leaf with a full sequence (12 blocks) is scored by the exact
  * reward of one cycle; otherwise it is expanded with the network and its
  * value is used. The value is added to W, and 1 to N, of every node on
  * the path, the root included. After nSims simulations the action is

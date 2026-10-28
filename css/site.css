@@ -846,9 +846,9 @@ ol.next li::marker {
   border-color: var(--accent);
 }
 
-/* The pulse strip under the slots: the pulses of the cycle so far on a
+/* The pulse strip under the slots: the pulses of the sequence so far on a
    time axis, drawn by js/demo.js. x pulses take the accent, y pulses the
-   blue of the RL designs; the axis and its ticks are muted, the block
+   blue of the RL sequences; the axis and its ticks are muted, the block
    hairlines fainter still. A newly placed block fades in once. */
 
 #demo .demo-row-label {

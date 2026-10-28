@@ -3,7 +3,7 @@ window.SITE_DATA = {
  "categories": [
   "Reference",
   "FunSearch",
-  "RL design",
+  "RL sequence",
   "Archive pick",
   "Hand-assembled"
  ],
@@ -52,38 +52,38 @@ window.SITE_DATA = {
   },
   {
    "id": "rl1",
-   "name": "RL design 1",
-   "category": "RL design",
+   "name": "RL sequence 1",
+   "category": "RL sequence",
    "alphabet": "SED"
   },
   {
    "id": "rl2",
-   "name": "RL design 2",
-   "category": "RL design",
+   "name": "RL sequence 2",
+   "category": "RL sequence",
    "alphabet": "SED"
   },
   {
    "id": "rl3",
-   "name": "RL design 3",
-   "category": "RL design",
+   "name": "RL sequence 3",
+   "category": "RL sequence",
    "alphabet": "SED"
   },
   {
    "id": "rl4",
-   "name": "RL design 4",
-   "category": "RL design",
+   "name": "RL sequence 4",
+   "category": "RL sequence",
    "alphabet": "YXX"
   },
   {
    "id": "rl5",
-   "name": "RL design 5",
-   "category": "RL design",
+   "name": "RL sequence 5",
+   "category": "RL sequence",
    "alphabet": "YXX"
   },
   {
    "id": "rl6",
-   "name": "RL design 6",
-   "category": "RL design",
+   "name": "RL sequence 6",
+   "category": "RL sequence",
    "alphabet": "YXX"
   },
   {
@@ -732,7 +732,7 @@ window.SITE_DATA = {
    },
    {
     "seqId": "rl1",
-    "name": "RL design 1",
+    "name": "RL sequence 1",
     "reward72": 10.65
    },
    {
@@ -769,7 +769,7 @@ window.SITE_DATA = {
    },
    {
     "seqId": "rl1",
-    "name": "RL design 1",
+    "name": "RL sequence 1",
     "reward72": 5.33
    },
    {

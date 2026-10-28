@@ -3,10 +3,10 @@
  *
  * Mounts into #demo the action buttons (one main button whose text follows
  * the state, Reset, and a toggle for picking the blocks by hand), a folded
- * Settings panel, the twelve slots of the cycle, a strip with the pulses
- * of the cycle so far on a time axis, the decision view (visit counts of
+ * Settings panel, the twelve slots of the sequence, a strip with the pulses
+ * of the sequence so far on a time axis, the decision view (visit counts of
  * the search in progress against the prior the network assigned), the
- * progress line of the episode and, once the cycle is complete, its
+ * progress line of the episode and, once the sequence is complete, its
  * reward beside the spins left alone and the reference sequences. The
  * search runs one decision at a time inside requestAnimationFrame, a few
  * simulations per frame, so the bars can be watched growing.
@@ -21,14 +21,14 @@
  *   done     twelve blocks; the reward and the reference bars are shown
  *
  * The main button reads Start (idle), Pause (running), Resume (paused),
- * Run again (done) and, in Manual mode with a partial cycle, Let the
+ * Run again (done) and, in Manual mode with a partial sequence, Let the
  * search finish. Reset restores the default settings and the first seed.
  *
  * The page passes the globals it loaded (SITE_DATA, ENSEMBLE, NET_TRAINED,
  * NET_UNTRAINED, PulseSim, PolicyNet, Search) as `deps`. NET_UNTRAINED is
  * optional; a missing dependency other than NET_UNTRAINED produces a
  * one-line message inside the figure and no error. The
- * composed cycle is scored over two cycles (72 free-evolution windows), the
+ * composed sequence is scored over two cycles (72 free-evolution windows), the
  * convention of the reference values in SITE_DATA.demoRefs.
  *
  * Classic script: defines window.Demo; also exported for Node.
@@ -43,7 +43,7 @@
   var SIMS_PER_FRAME = { slow: 8, fast: 120 };   /* simulations per frame */
   var HOLD_MS = { slow: 500, fast: 150 };        /* pause after a decision */
   var LANDED_MS = 600;        /* a filled slot carries class "landed" this long */
-  var GROW_MS = 400;          /* the "this cycle" result bar grows this long */
+  var GROW_MS = 400;          /* the "this sequence" result bar grows this long */
   var SEED_BASE = 20260807;   /* seed of run k is SEED_BASE + k */
   var AXIS_MAX = 12;          /* reward axis of the result chart */
   var MIN_WIDTH = 280, MAX_WIDTH = 760, FALLBACK_WIDTH = 560;
@@ -62,7 +62,7 @@
   var SIM_OPTIONS = [100, 250, 500];
   var CATEGORY_CLASS = {
     'Reference': 'demo-cat-ref', 'FunSearch': 'demo-cat-fun',
-    'RL design': 'demo-cat-rl', 'Archive pick': 'demo-cat-pick',
+    'RL sequence': 'demo-cat-rl', 'Archive pick': 'demo-cat-pick',
     'Hand-assembled': 'demo-cat-hand'
   };
   var LEGEND = 'Each block, A to H, is a fixed pair of 90-degree pulses ' +
@@ -298,7 +298,7 @@
 
     /* row 2: the twelve slots and, in Manual mode, the palette */
     var slotsRow = h(doc, 'div', { 'class': 'demo-slots', id: 'demo-slots',
-      role: 'group', 'aria-label': 'the cycle' });
+      role: 'group', 'aria-label': 'the sequence' });
     var slots = [];
     for (var i = 0; i < CYCLE; i++) {
       var slot = h(doc, 'button', { type: 'button', 'class': 'demo-slot',
@@ -309,14 +309,14 @@
     }
     inner.appendChild(slotsRow);
 
-    /* row 2b: the pulses of the cycle so far on a time axis; left out when
+    /* row 2b: the pulses of the sequence so far on a time axis; left out when
        the simulator has no block table to read them from */
     var TOKENS = Sim.tokens && Sim.tokens.length === ACTIONS ? Sim.tokens : null;
     var tlSvg = null;
     if (TOKENS) {
-      inner.appendChild(h(doc, 'p', { 'class': 'demo-row-label' }, 'the pulses of this cycle'));
+      inner.appendChild(h(doc, 'p', { 'class': 'demo-row-label' }, 'the pulses of this sequence'));
       tlSvg = s(doc, 'svg', { id: 'demo-timeline', 'class': 'demo-timeline', role: 'img',
-        'aria-label': 'the pulses of the cycle so far on a time axis' });
+        'aria-label': 'the pulses of the sequence so far on a time axis' });
       inner.appendChild(tlSvg);
     }
 
@@ -359,7 +359,7 @@
     var resultText = h(doc, 'p', { 'class': 'demo-text demo-result-text',
       id: 'demo-result-text' });
     var resultSvg = s(doc, 'svg', { id: 'demo-result-chart', role: 'img',
-      'aria-label': 'reward of this cycle beside the spins left alone, the standard sequences and our designs' });
+      'aria-label': 'reward of this sequence beside the spins left alone, the standard sequences and our sequences' });
     resultWrap.appendChild(resultText);
     resultWrap.appendChild(resultSvg);
     resultWrap.hidden = true;
@@ -466,7 +466,7 @@
       state.xNow = x;
     }
 
-    /* Scores the full cycle; the caller draws. A fresh result grows its
+    /* Scores the full sequence; the caller draws. A fresh result grows its
        bar once in drawResult. */
     function finish() {
       stopLoop();
@@ -657,7 +657,7 @@
         if (state.prefix.length < CYCLE) {
           letSearchFinish();
         } else {
-          /* a full hand-built cycle: "Run again" starts a fresh search */
+          /* a full hand-built sequence: "Run again" starts a fresh search */
           setMode('search');
           runAgain();
         }
@@ -935,13 +935,13 @@
       var grow = !!res.fresh;
       res.fresh = false;
       var r = res.reward;
-      resultText.textContent = 'reward of this cycle over two repetitions: ' + (r > AXIS_MAX ?
+      resultText.textContent = 'reward of this sequence over two repetitions: ' + (r > AXIS_MAX ?
         'above ' + AXIS_MAX + ' (beyond the simulator’s precision)' : fmt(r, 2));
       var refs = SITE.demoRefs[res.preset] || [];
       var rows = [
         { name: 'no pulses', reward: freeRewardFor(res.preset), cls: 'demo-bar-free',
           style: 'fill: var(--muted)', labelCls: 'demo-muted' },
-        { name: 'this cycle', reward: r, cls: 'demo-bar-this',
+        { name: 'this sequence', reward: r, cls: 'demo-bar-this',
           labelCls: 'demo-label-this', grow: grow }
       ];
       refs.forEach(function (ref) {
@@ -980,7 +980,7 @@
       if (growing) growBar(growing.bar, growing.width);
     }
 
-    /* The "this cycle" bar grows from empty to its length over GROW_MS
+    /* The "this sequence" bar grows from empty to its length over GROW_MS
        with an ease-out, as a tween of the width attribute (a CSS transition
        on an SVG attribute does not run in every browser). Readers who ask
        for reduced motion get the final width at once. */
