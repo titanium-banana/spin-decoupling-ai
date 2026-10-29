@@ -289,7 +289,7 @@
       return { value: id, label: PRESET_LABEL[id] || id };
     }), state.preset);
     controls.appendChild(labelled(doc, 'network', priorSel));
-    controls.appendChild(labelled(doc, 'exploration constant c', cSel));
+    controls.appendChild(labelled(doc, 'exploration coefficient c', cSel));
     controls.appendChild(labelled(doc, 'simulations per decision', simsSel));
     controls.appendChild(labelled(doc, 'speed', speedSel));
     controls.appendChild(labelled(doc, 'physics', physicsSel));

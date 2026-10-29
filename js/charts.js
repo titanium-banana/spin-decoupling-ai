@@ -1,5 +1,5 @@
 /*
- * charts.js: the four data figures of the page (Figures 7, 12, 16 and 18),
+ * charts.js: the four data figures of the page (Figures 9, 10, 11 and 16),
  * drawn as plain SVG from window.SITE_DATA.
  *
  * Each chart is drawn at the pixel width of its container, so labels keep
@@ -221,10 +221,10 @@
     node.addEventListener('mouseleave', function () { tooltip().style.display = 'none'; });
   }
 
-  /* ---- Figure 7: search gain per run ------------------------------------ */
+  /* ---- Figure 9: search gain per run ------------------------------------ */
 
   function drawGain(d) {
-    var c = document.getElementById('fig7-chart');
+    var c = document.getElementById('fig9-chart');
     if (!c || !d.searchGain) return;
     var runs = d.searchGain, W = widthOf(c, 952), right = 20;
     var lo = 0, hi = 0, longest = 0;
@@ -275,10 +275,10 @@
     });
   }
 
-  /* ---- Figure 12: scores on three banks --------------------------------- */
+  /* ---- Figure 11: scores on three banks --------------------------------- */
 
   function drawScores(d) {
-    var c = document.getElementById('fig12-chart');
+    var c = document.getElementById('fig11-chart');
     if (!c || !d.scores) return;
     var W = widthOf(c, 952), labelW = 124, right = 8, gap = 18;
     var stacked = W < 600;
@@ -364,10 +364,10 @@
     axisLabel(svg, labelW + (W - labelW - right) / 2, lastAxisY + 32, xLabel, W);
   }
 
-  /* ---- Figure 16: rollouts at first appearance -------------------------- */
+  /* ---- Figure 10: rollouts at first appearance -------------------------- */
 
   function drawFirstSeen(d) {
-    var c = document.getElementById('fig16-chart');
+    var c = document.getElementById('fig10-chart');
     if (!c || !d.firstSeen) return;
     var W = widthOf(c, 952), left = 128, right = 20, top = 14, xmax = 300000;
     var plotW = W - left - right;
@@ -404,10 +404,10 @@
     });
   }
 
-  /* ---- Figure 18: FunSearch trajectory ---------------------------------- */
+  /* ---- Figure 16: FunSearch trajectory ---------------------------------- */
 
   function drawFunsearch(d) {
-    var c = document.getElementById('fig18-chart');
+    var c = document.getElementById('fig16-chart');
     if (!c || !d.funsearch || !d.funsearch.trajectory) return;
     var traj = d.funsearch.trajectory;
     var W = widthOf(c, 748), H = 240, left = 48, right = 16, top = 12, bottom = 40;

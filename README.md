@@ -1,4 +1,4 @@
-# Searching for pulse sequences that keep quantum spins coherent
+# Hamiltonian Engineering of Interacting Spin Systems with AlphaZero Style MCTS
 
 This is the static page for our student-showcase presentation of a reinforcement-learning search for multi-pulse decoupling sequences: the problem, a live search that runs in the browser (`js/sim.js`, `js/net.js`, `js/search.js`, `js/demo.js`), an illustration of spins under pulses (`js/dephase.js`), the evaluation of what the search found against the standard sequences, what the trained networks learned, and a first look at a second approach in which a language model writes the search program. The page is plain HTML, CSS and classic scripts with no build step; it opens directly from `index.html` over `file://` and can be served as it is. The data files under `data/` assign window globals, and the figures under `img/` are copies or replots of the research figures.
 

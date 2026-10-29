@@ -1099,3 +1099,30 @@ ol.next li::marker {
     transition: none;
   }
 }
+
+/* ---- Kiosk mode (index.html?kiosk=1; the class is set by js/kiosk.js) ---- */
+
+body.kiosk nav.contents {
+  display: none;
+}
+
+@media (min-width: 64rem) {
+  body.kiosk .page {
+    grid-template-columns: minmax(0, 60rem);
+    justify-content: center;
+  }
+}
+
+body.kiosk #fig1 {
+  scroll-margin-top: 1.25rem;
+}
+
+body.kiosk #demo .demo-inner {
+  max-width: 47.5rem;
+}
+
+body.kiosk figure.demo #demo {
+  font-size: 1rem;
+}
+
+/* ---- end of kiosk mode -------------------------------------------------- */
