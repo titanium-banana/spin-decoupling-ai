@@ -1126,3 +1126,300 @@ body.kiosk figure.demo #demo {
 }
 
 /* ---- end of kiosk mode -------------------------------------------------- */
+
+/* ---- The illustration "Inside the network" in Section 4 (js/netviz.js) ----
+   Stages top to bottom: token slots (a column of nine one-hot cells each),
+   the 64 memory cells, ten rows of 32 trunk cells, then the policy bars
+   and the value gauge. Cells are small squares; the activation colour is
+   set inline (blue positive, orange negative, transparent at zero) and
+   reads over the light and the dark base alike. */
+
+figure.illus .nv-stage {
+  font-family: var(--sans);
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 0.75rem 0.9rem 0.6rem;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  box-sizing: border-box;
+}
+
+figure.illus .nv-row {
+  margin: 0 0 0.7rem;
+  min-width: 0;
+}
+
+figure.illus .nv-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 0.3rem;
+}
+
+figure.illus .nv-cell {
+  display: block;
+  aspect-ratio: 1 / 1;
+  background: var(--band);
+  border-radius: 1px;
+  transition: background-color 220ms ease-out;
+}
+
+figure.illus .nv-tokens {
+  display: flex;
+  gap: 0.3rem;
+  overflow-x: auto;
+  padding-bottom: 0.15rem;
+}
+
+figure.illus .nv-token {
+  flex: 0 0 auto;
+  width: 1.5rem;
+  text-align: center;
+  transition: opacity 220ms ease-out;
+}
+
+figure.illus .nv-token-empty {
+  opacity: 0.3;
+}
+
+figure.illus .nv-token-future {
+  opacity: 0.45;
+}
+
+figure.illus .nv-onehot {
+  display: grid;
+  grid-template-rows: repeat(9, 1fr);
+  gap: 1px;
+  width: 0.55rem;
+  margin: 0 auto;
+  padding: 2px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+}
+
+figure.illus .nv-token-active .nv-onehot {
+  border-color: var(--accent);
+}
+
+figure.illus .nv-onehot .nv-cell {
+  aspect-ratio: auto;
+  height: 0.42rem;
+}
+
+figure.illus .nv-cell.nv-on {
+  background: var(--accent);
+}
+
+figure.illus .nv-token-label {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--ink-2);
+  margin-top: 0.15rem;
+  min-height: 1em;
+}
+
+figure.illus .nv-token-active .nv-token-label {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+figure.illus .nv-grid {
+  display: grid;
+  gap: 2px;
+}
+
+figure.illus .nv-memory {
+  grid-template-columns: repeat(16, 1fr);
+  max-width: 20rem;
+}
+
+figure.illus .nv-trunk,
+figure.illus .nv-heads {
+  transition: opacity 220ms ease-out;
+}
+
+figure.illus .nv-layer {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0 0 2px;
+  transition: opacity 220ms ease-out;
+}
+
+figure.illus .nv-layer.nv-stale,
+figure.illus .nv-head.nv-stale {
+  opacity: 0.3;
+}
+
+figure.illus .nv-layer-label {
+  font-size: 0.68rem;
+  color: var(--muted);
+  text-align: right;
+}
+
+figure.illus .nv-layer-cells {
+  grid-template-columns: repeat(32, 1fr);
+  max-width: 30rem;
+}
+
+figure.illus .nv-heads {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 0.4rem;
+}
+
+figure.illus .nv-head {
+  margin: 0;
+}
+
+figure.illus .nv-svg {
+  display: block;
+  width: 100%;
+  max-width: 17rem;
+  height: auto;
+}
+
+figure.illus svg .nv-base {
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+
+figure.illus svg .nv-bar {
+  fill: var(--muted);
+  transition: y 350ms ease-out, height 350ms ease-out;
+}
+
+figure.illus svg .nv-bar.nv-bar-best {
+  fill: var(--accent);
+}
+
+figure.illus svg .nv-bar-label {
+  font-family: var(--sans);
+  font-size: 11px;
+  fill: var(--ink-2);
+}
+
+figure.illus svg .nv-bar-label.nv-bar-best {
+  fill: var(--accent);
+  font-weight: 600;
+}
+
+figure.illus .nv-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 0.15rem;
+  line-height: 1.2;
+}
+
+figure.illus svg .nv-gauge-track {
+  fill: var(--band);
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+
+figure.illus svg .nv-gauge-fill {
+  fill: var(--accent);
+  transition: width 350ms ease-out;
+}
+
+figure.illus svg .nv-gauge-label {
+  font-family: var(--sans);
+  font-size: 10px;
+  fill: var(--muted);
+}
+
+figure.illus .nv-status {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--ink-2);
+  max-width: 44rem;
+  margin: 0.4rem auto 0;
+  min-height: 2.4em;
+}
+
+figure.illus .nv-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1rem;
+  max-width: 44rem;
+  margin: 0.5rem auto 0;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--ink-2);
+}
+
+figure.illus .nv-group,
+figure.illus .nv-field {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+figure.illus .nv-controls button,
+figure.illus .nv-controls select {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  line-height: 1.3;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 0.15rem 0.6rem;
+  margin: 0;
+  cursor: pointer;
+}
+
+figure.illus .nv-controls button.nv-block {
+  min-width: 2rem;
+  padding: 0.15rem 0.3rem;
+}
+
+figure.illus .nv-controls button:disabled {
+  color: var(--muted);
+  cursor: default;
+}
+
+figure.illus .nv-controls button.nv-follow.nv-active {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+figure.illus .nv-controls button:focus-visible,
+figure.illus .nv-controls select:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 1px;
+}
+
+@media (max-width: 40rem) {
+  figure.illus .nv-stage {
+    padding: 0.6rem 0.6rem 0.5rem;
+  }
+
+  figure.illus .nv-heads {
+    grid-template-columns: 1fr;
+  }
+
+  figure.illus .nv-layer {
+    grid-template-columns: 1.7rem 1fr;
+  }
+
+  figure.illus .nv-grid {
+    gap: 1px;
+  }
+}
+
+@media (max-width: 40rem), (pointer: coarse) {
+  figure.illus .nv-controls button,
+  figure.illus .nv-controls select {
+    font-size: 1rem;
+    min-height: 2.75rem;
+  }
+}
+
+/* ---- end of the network illustration ----------------------------------- */

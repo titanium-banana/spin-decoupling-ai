@@ -108,6 +108,12 @@
 <h3>Search and network</h3>
 <p>Designing a sequence can be played as a game with one player. Starting from an empty sequence, the player plays actions, appending one block at a time, until the cycle is complete (one rollout); the spin simulator then scores the result. Reinforcement learning has designed such sequences before; <a href="#ref-yxx24">that search</a> produced the reference YXX24. We adapted <a href="#ref-alphazero">AlphaZero</a>. Each decision builds a tree rooted at the current partial sequence and runs 500 simulations of possible continuations, guided by a small network whose policy head gives a prior over the next block and whose value head predicts the final reward; the next block is drawn from the visit counts, sharpened by a temperature. The score and the visit counts of every finished rollout become the network's training records (Figure 2). One trainer updates the network while seven collectors play rollouts in parallel, with no constraint on their relative speed.</p>
 
+<figure class="illus" id="illus-net">
+<p class="panel-head">Illustration</p>
+<div id="netviz"><p class="demo-status">The illustration appears here once the page has loaded.</p></div>
+<figcaption><b>Illustration.</b> Inside the network, for the prefix being played. Each token enters the recurrent layer as a one-hot vector, and the 64 cells of the memory show its hidden state (blue positive, orange negative). The ten rows below are the layers of the trunk, the first fed by the memory and the rest residual, the eight bars are the prior the policy head puts on the next block, and the number with the gauge is the final reward the value head predicts. While the search in Figure 1 runs, the panel feeds its prefix; the buttons let you build one instead and compare the trained network with the untrained one.</figcaption>
+</figure>
+
 <figure class="diagram narrow">
 <svg viewBox="0 0 680 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Loop: network to tree search to next block to simulator and back to the network">
   <defs>
@@ -388,6 +394,7 @@
 <script src="js/charts.js"></script>
 <script src="js/demo.js"></script>
 <script src="js/dephase.js"></script>
+<script src="js/netviz.js"></script>
 <script src="js/nav.js"></script>
 <script src="js/kiosk.js"></script>
 <script>
@@ -419,6 +426,19 @@
     var dephaseStatus = dephaseRoot.querySelector('.demo-status');
     if (dephaseStatus) {
       dephaseStatus.textContent = 'The illustration could not load its script. Reload the page to try again.';
+    }
+  }
+  var netvizRoot = document.getElementById('netviz');
+  if (netvizRoot && typeof window.NetViz !== 'undefined') {
+    window.NetViz.mount(netvizRoot, {
+      NET_TRAINED: window.NET_TRAINED,
+      NET_UNTRAINED: window.NET_UNTRAINED,
+      PolicyNet: window.PolicyNet
+    });
+  } else if (netvizRoot) {
+    var netvizStatus = netvizRoot.querySelector('.demo-status');
+    if (netvizStatus) {
+      netvizStatus.textContent = 'The illustration could not load its script. Reload the page to try again.';
     }
   }
   if (/(?:^|[?&])selftest=1(?:&|$)/.test(window.location.search) &&

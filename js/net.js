@@ -123,20 +123,24 @@
     return y;
   }
 
-  function heads(net, h) {
+  /* The trunk and the two heads from a hidden state h. When record is an
+     array, the output of each of the ten fully connected layers is pushed
+     onto it in order (ten Float64Array(32)). */
+  function forward(net, h, record) {
     var x = new Float64Array(HID);
     for (var i = 0; i < HID; i++) x[i] = h[i] > 0 ? h[i] : 0;
     var fc = net.fc;
-    x = dense(fc[1], x);
-    var y = dense(fc[2], x);
-    x = dense(fc[3], y, x);
-    y = dense(fc[4], x);
-    x = dense(fc[5], y, x);
-    y = dense(fc[6], x);
-    y = dense(fc[7], y);
-    x = dense(fc[8], y, x);
-    var v = dense(fc[9], x);
-    v = dense(fc[10], v);
+    function keep(v) { if (record) record.push(v); return v; }
+    x = keep(dense(fc[1], x));
+    var y = keep(dense(fc[2], x));
+    x = keep(dense(fc[3], y, x));
+    y = keep(dense(fc[4], x));
+    x = keep(dense(fc[5], y, x));
+    y = keep(dense(fc[6], x));
+    y = keep(dense(fc[7], y));
+    x = keep(dense(fc[8], y, x));
+    var v = keep(dense(fc[9], x));
+    v = keep(dense(fc[10], v));
     var value = net.valueB[0];
     for (var k = 0; k < FC; k++) value += net.valueW[k] * v[k];
     var logits = new Float64Array(ACT);
@@ -153,7 +157,31 @@
       total += policy[b];
     }
     for (var c = 0; c < ACT; c++) policy[c] /= total;
-    return { policy: policy, value: value };
+    return { policy: policy, value: value, logits: logits };
+  }
+
+  function heads(net, h) {
+    return forward(net, h, null);
+  }
+
+  /* trace(net, prefix) -> every intermediate of one evaluation, for the
+     illustration of the network: steps[i] = {token, h} for the start token
+     and each action in turn (token is the one-hot index, h the hidden
+     state after it), layers = the ten trunk outputs in order, and the
+     policy, value and logits of the last step. Computed without the cache;
+     the numbers equal evaluate(net, prefix). */
+  function trace(net, prefix) {
+    var steps = [], h = new Float64Array(HID);
+    h = gruStep(net, h, 0);
+    steps.push({ token: 0, h: h });
+    for (var i = 0; i < prefix.length; i++) {
+      h = gruStep(net, h, prefix[i] + 1);
+      steps.push({ token: prefix[i] + 1, h: h });
+    }
+    var layers = [];
+    var out = forward(net, h, layers);
+    return { steps: steps, layers: layers, policy: out.policy,
+             value: out.value, logits: out.logits };
   }
 
   /* Cached entry {h, policy, value} for a prefix (array of actions). */
@@ -252,6 +280,7 @@
   var PolicyNet = {
     create: create,
     evaluate: evaluate,
+    trace: trace,
     clearCache: clearCache,
     selfTest: selfTest,
     shapes: SHAPES
